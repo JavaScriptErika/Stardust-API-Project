@@ -3,15 +3,20 @@ const searchInputField = document.getElementById('image-search')
 const localWindowStorage = window.localStorage
 const showPreviousSearches = document.querySelector('.show-previous-searches')
 const displayFetchError = document.querySelector('.display-error')
+const isLoading = document.querySelector('.loading')
 
 searchButton.addEventListener('click', (e) => {
     e.preventDefault
     const userSearchValue = searchInputField.value
+    showLoadingIndicator(true)
 
     userSearchValue === "" ? requestNasaApi() : requestNasaApi(userSearchValue)
     userSearchValue !== "" ? displayPastSavedSearches(userSearchValue) : ''
 })
 
+const showLoadingIndicator = (state) => {
+    (state) ? isLoading.style.display = 'block' : isLoading.style.display = 'none'
+}
 
 const requestNasaApi= (SearchValue = 'stars') => {
     fetch(`https://images-api.nasa.gov/search?q=${SearchValue}&media_type=image`)
@@ -19,6 +24,7 @@ const requestNasaApi= (SearchValue = 'stars') => {
         if(!response.ok){
             throw Error(response.status)
         } else {
+            showLoadingIndicator(false)
             return response
         }
     })
@@ -28,6 +34,7 @@ const requestNasaApi= (SearchValue = 'stars') => {
         displayImagesFromApi(imagesFromSearchArray)
     })
     .catch((error) => {
+        showLoadingIndicator(false)
         displayFetchError.innerText = `${error}`
     })
 }
