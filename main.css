@@ -11,6 +11,18 @@ img {
     height: 30rem;
 }
 
+p {
+    width: 30rem
+}
+
+.image-description {
+    display: none;
+}
+
+.show-image-description {
+    display: block;
+}
+
 .image-container {
     display: flex;
     flex-flow: row wrap;

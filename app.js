@@ -1,5 +1,5 @@
 /*
-🌎 Global variables 🌎
+🌎 Global variables
 */
 const displayFetchError = document.querySelector('.display-error')
 const imageContainer = document.querySelector('.image-container')
@@ -77,11 +77,35 @@ const requestNasaApi= (searchValue = 'stars') => {
 const displayImagesFromApi = (imagesArray) => {
     const displayImages = imagesArray.map((imgItem) => {
         const createImageDiv = document.createElement('div')
+        const createParagraph = document.createElement('p')
         const createImage = new Image()
 
+        createImageDiv.classList.add('image-div')
+        createParagraph.innerHTML = imgItem.data[0].description
+        createParagraph.classList.add("image-description")
         createImage.src = imgItem.links[0].href
+
         createImageDiv.appendChild(createImage)
+        createImageDiv.appendChild(createParagraph)
+
         return imageContainer.appendChild(createImageDiv)
+        })
+
+        displayImageDescription()
+}
+
+const displayImageDescription = () => {
+    const imageDiv = document.querySelectorAll('.image-div')
+
+    imageDiv.forEach(function(item,index){
+        console.log(item)
+        item.addEventListener('mouseenter', (e) => {
+            item.querySelector('.image-description').style.display = 'block'
+            })
+
+        item.addEventListener('mouseleave', (e) => {
+            item.querySelector('.image-description').style.display = 'none'
+            })
         })
 }
 
@@ -93,4 +117,11 @@ const displayPastSavedSearches = (searchValue) => {
     localWindowStorage.setItem(`searchTerm`, searchValue)
     const getSavedSearches = localWindowStorage.getItem(`searchTerm`)
     showPreviousSearches.innerHTML += `${getSavedSearches} `
+}
+
+const callListener = (myImage) => {
+    console.log([...myImage])
+    myImage.addEventListener('click', (e) => {
+        alert("hi")
+    })
 }
