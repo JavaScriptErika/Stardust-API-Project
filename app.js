@@ -2,6 +2,7 @@ const searchButton = document.getElementById('search-btn')
 const searchInputField = document.getElementById('image-search')
 const localWindowStorage = window.localStorage
 const showPreviousSearches = document.querySelector('.show-previous-searches')
+const displayFetchError = document.querySelector('.display-error')
 
 searchButton.addEventListener('click', (e) => {
     e.preventDefault
@@ -14,10 +15,20 @@ searchButton.addEventListener('click', (e) => {
 
 const requestNasaApi= (SearchValue = 'stars') => {
     fetch(`https://images-api.nasa.gov/search?q=${SearchValue}&media_type=image`)
+    .then((response) => {
+        if(!response.ok){
+            throw Error(response.status)
+        } else {
+            return response
+        }
+    })
     .then((response) => response.json())
     .then((response) => {
         const { items: imagesFromSearchArray } = response.collection
         displayImagesFromApi(imagesFromSearchArray)
+    })
+    .catch((error) => {
+        displayFetchError.innerText = `${error}`
     })
 }
 
