@@ -15,12 +15,26 @@ p {
     width: 30rem
 }
 
-.image-description {
-    display: none;
+.image-div {
+    position: relative;
+    cursor: pointer;
+    overflow: auto;
 }
 
-.show-image-description {
-    display: block;
+.image-description {
+    display: none;
+    margin: 0 auto;
+    position: absolute;
+    width: 95%;
+    padding: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    overflow-wrap: break-word;
+    color: white;
+    background-color: rgba(47,79,79, .8);
 }
 
 .image-container {

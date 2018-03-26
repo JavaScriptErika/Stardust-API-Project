@@ -98,7 +98,6 @@ const displayImageDescription = () => {
     const imageDiv = document.querySelectorAll('.image-div')
 
     imageDiv.forEach(function(item,index){
-        console.log(item)
         item.addEventListener('mouseenter', (e) => {
             item.querySelector('.image-description').style.display = 'block'
             })
@@ -117,11 +116,4 @@ const displayPastSavedSearches = (searchValue) => {
     localWindowStorage.setItem(`searchTerm`, searchValue)
     const getSavedSearches = localWindowStorage.getItem(`searchTerm`)
     showPreviousSearches.innerHTML += `${getSavedSearches} `
-}
-
-const callListener = (myImage) => {
-    console.log([...myImage])
-    myImage.addEventListener('click', (e) => {
-        alert("hi")
-    })
 }
