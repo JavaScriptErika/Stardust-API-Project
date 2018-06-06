@@ -38,7 +38,7 @@ const showLoadingIndicator = (state) => {
 const checkUserSearchValue = () => {
     const userSearchValue = searchInputField.value
     userSearchValue === "" ? requestNasaApi() : requestNasaApi(userSearchValue)
-    userSearchValue !== "" ? displayPastSavedSearches(userSearchValue) : ''
+    userSearchValue !== "" ? displayPastSavedSearches() : displayPastSavedSearches(userSearchValue)
 }
 
 /*
@@ -47,25 +47,25 @@ const checkUserSearchValue = () => {
     2) Check if status is ok
     3) Call displayImagesFromAPi with deconstructed argument
 */
-const requestNasaApi= (searchValue = 'stars') => {
+const requestNasaApi = (searchValue = 'stars') => {
     fetch(`https://images-api.nasa.gov/search?q=${searchValue}&media_type=image`)
-    .then((response) => {
-        if(!response.ok){
-            throw Error(response.status)
-        } else {
+        .then((response) => {
+            if (!response.ok) {
+                throw Error(response.status)
+            } else {
+                showLoadingIndicator(false)
+                return response
+            }
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            const { items: imagesFromSearchArray } = response.collection
+            displayImagesFromApi(imagesFromSearchArray)
+        })
+        .catch((error) => {
             showLoadingIndicator(false)
-            return response
-        }
-    })
-    .then((response) => response.json())
-    .then((response) => {
-        const { items: imagesFromSearchArray } = response.collection
-        displayImagesFromApi(imagesFromSearchArray)
-    })
-    .catch((error) => {
-        showLoadingIndicator(false)
-        displayFetchError.innerText = `${error}`
-    })
+            displayFetchError.innerText = `${error}`
+        })
 }
 
 /*🖼️ Display images from Nasa Api (user search)
@@ -89,30 +89,30 @@ const displayImagesFromApi = (imagesArray) => {
         createImageDiv.appendChild(createParagraph)
 
         return imageContainer.appendChild(createImageDiv)
-        })
+    })
 
-        displayImageDescription()
+    displayImageDescription()
 }
 
 const displayImageDescription = () => {
     const imageDiv = document.querySelectorAll('.image-div')
 
-    imageDiv.forEach(function(item,index){
+    imageDiv.forEach(function (item, index) {
         item.addEventListener('mouseenter', (e) => {
-            item.querySelector('.image-description').style.display = 'block'
-            })
+            item.querySelector('.image-description').style.display = 'inline'
+        })
 
         item.addEventListener('mouseleave', (e) => {
             item.querySelector('.image-description').style.display = 'none'
-            })
         })
+    })
 }
 
 /*️🗝️️ Display saved searches
     1) Set key and value on window storage object
     2) Display saved searches
 */
-const displayPastSavedSearches = (searchValue) => {
+const displayPastSavedSearches = (searchValue = 'stars') => {
     localWindowStorage.setItem(`searchTerm`, searchValue)
     const getSavedSearches = localWindowStorage.getItem(`searchTerm`)
     showPreviousSearches.innerHTML += `${getSavedSearches} `
