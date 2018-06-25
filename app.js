@@ -3,11 +3,13 @@
 */
 const displayFetchError = document.querySelector('.display-error')
 const imageContainer = document.querySelector('.image-container')
+const mainContainer = document.querySelector('.container')
 const isLoading = document.querySelector('.loading')
 const localWindowStorage = window.localStorage
 const searchButton = document.getElementById('search-btn')
 const searchInputField = document.getElementById('image-search')
 const showPreviousSearches = document.querySelector('.show-previous-searches')
+const newArr = []
 
 /*
 🐭 Event Listeners
@@ -69,14 +71,26 @@ const requestNasaApi = (searchValue = 'stars') => {
         })
 }
 
+//Checks imageArray length to only show 10 at a time depending on what API gives us
+const displayImagesFromApi = imagesArray => imagesArray.length > 10 ? limitDisplayToTen(imagesArray) : displayImages(imagesArray)
+
+//Push 10 items onto a new array, we do this so when we map over the array, only 10 items will display
+const limitDisplayToTen = (imagesArray) => {
+    for (var i = 0; i < 10; i++) {
+        newArr.push(imagesArray[i])
+    }
+    displayImages(newArr)
+    showMoreButton()
+}
+
 /*🖼️ Display images from Nasa Api (user search)
     1) Map through images array
         a) For each picture, create a div, image element
            and source from api response.
     2) Append created image to created div, append to image container
 */
-const displayImagesFromApi = (imagesArray) => {
-    const displayImages = imagesArray.map((imgItem) => {
+const displayImages = (imagesArray) => {
+    imagesArray.map((imgItem) => {
         const createImageDiv = document.createElement('div')
         const createParagraph = document.createElement('p')
         const createImage = new Image()
@@ -89,7 +103,7 @@ const displayImagesFromApi = (imagesArray) => {
         createImageDiv.appendChild(createImage)
         createImageDiv.appendChild(createParagraph)
 
-        return imageContainer.appendChild(createImageDiv)
+        imageContainer.appendChild(createImageDiv)
     })
 
     displayImageDescription()
@@ -99,14 +113,21 @@ const displayImageDescription = () => {
     const imageDiv = document.querySelectorAll('.image-div')
 
     imageDiv.forEach(function (item, index) {
-        item.addEventListener('mouseenter', (e) => {
+        item.addEventListener('mouseenter', () => {
             item.querySelector('.image-description').style.display = 'inline'
         })
 
-        item.addEventListener('mouseleave', (e) => {
+        item.addEventListener('mouseleave', () => {
             item.querySelector('.image-description').style.display = 'none'
         })
     })
+}
+
+const showMoreButton = () => {
+    const showMoreBtn = document.createElement("BUTTON")
+    const btnText = document.createTextNode("Show More")
+    showMoreBtn.appendChild(btnText)
+    mainContainer.appendChild(showMoreBtn)
 }
 
 /*️🗝️️ Display saved searches

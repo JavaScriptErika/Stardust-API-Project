@@ -30,7 +30,8 @@ input#image-search {
     border: none;
 }
 
-input#search-btn {
+input#search-btn,
+button {
     padding: .5rem;
     width: 7rem;
     background-color: transparent;
@@ -43,9 +44,16 @@ input#search-btn {
     transition: box-shadow 200ms ease-out;
 }
 
-input#search-btn:hover {
+input#search-btn:hover,
+button:hover {
     cursor: pointer;
     box-shadow: 0px 1px 50px rgba(255, 255, 255, 1);
+    width: 10rem;
+}
+
+button {
+    display: block;
+    margin: 1 auto 10rem;
 }
 
 p {
