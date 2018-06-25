@@ -38,7 +38,8 @@ const showLoadingIndicator = (state) => {
 const checkUserSearchValue = () => {
     const userSearchValue = searchInputField.value
     userSearchValue === "" ? requestNasaApi() : requestNasaApi(userSearchValue)
-    userSearchValue !== "" ? displayPastSavedSearches() : displayPastSavedSearches(userSearchValue)
+    userSearchValue === "" ? displayPastSavedSearches() : displayPastSavedSearches(userSearchValue)
+    clearUserSearchValue(userSearchValue)
 }
 
 /*
@@ -116,4 +117,8 @@ const displayPastSavedSearches = (searchValue = 'stars') => {
     localWindowStorage.setItem(`searchTerm`, searchValue)
     const getSavedSearches = localWindowStorage.getItem(`searchTerm`)
     showPreviousSearches.innerHTML += `${getSavedSearches} `
+}
+
+const clearUserSearchValue = () => {
+    console.log(searchInputField.value = "")
 }
