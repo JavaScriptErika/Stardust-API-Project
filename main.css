@@ -48,12 +48,12 @@ input#search-btn:hover,
 button:hover {
     cursor: pointer;
     box-shadow: 0px 1px 50px rgba(255, 255, 255, 1);
-    width: 10rem;
 }
 
 button {
     display: block;
-    margin: 1 auto 10rem;
+    margin: 1rem auto 10rem;
+    width: 10rem;
 }
 
 p {

@@ -10,6 +10,7 @@ const searchButton = document.getElementById('search-btn')
 const searchInputField = document.getElementById('image-search')
 const showPreviousSearches = document.querySelector('.show-previous-searches')
 const newArr = []
+let counter = 10
 
 /*
 🐭 Event Listeners
@@ -72,16 +73,40 @@ const requestNasaApi = (searchValue = 'stars') => {
 }
 
 //Checks imageArray length to only show 10 at a time depending on what API gives us
-const displayImagesFromApi = imagesArray => imagesArray.length > 10 ? limitDisplayToTen(imagesArray) : displayImages(imagesArray)
+
+const displayImagesFromApi = (imagesArray) => {
+    if (imagesArray.length > 10) {
+        showMoreButton()
+        limitDisplayToTen(imagesArray)
+    } else {
+        displayImages(imagesArray)
+    }
+}
 
 //Push 10 items onto a new array, we do this so when we map over the array, only 10 items will display
 const limitDisplayToTen = (imagesArray) => {
+    newArr.length === 0 ? displayFirstTen(imagesArray) : displayNextTen(imagesArray)
+    showButtonClicked(imagesArray)
+}
+
+const displayFirstTen = (imagesArray) => {
     for (var i = 0; i < 10; i++) {
         newArr.push(imagesArray[i])
     }
     displayImages(newArr)
-    showMoreButton()
 }
+
+const displayNextTen = (imagesArray) => {
+
+    console.log(counter)
+
+    for (var i = newArr.length; i < counter; i++) {
+        newArr.push(imagesArray[i])
+    }
+
+    displayImages(newArr.slice(counter - 10))
+}
+
 
 /*🖼️ Display images from Nasa Api (user search)
     1) Map through images array
@@ -90,7 +115,7 @@ const limitDisplayToTen = (imagesArray) => {
     2) Append created image to created div, append to image container
 */
 const displayImages = (imagesArray) => {
-    imagesArray.map((imgItem) => {
+    let displayedImages = imagesArray.map((imgItem) => {
         const createImageDiv = document.createElement('div')
         const createParagraph = document.createElement('p')
         const createImage = new Image()
@@ -130,6 +155,14 @@ const showMoreButton = () => {
     mainContainer.appendChild(showMoreBtn)
 }
 
+const showButtonClicked = (imagesArray) => {
+    const showMoreBtn = document.querySelector('button')
+    showMoreBtn.addEventListener("click", () => {
+        counter += 10
+        displayNextTen(imagesArray)
+    })
+}
+
 /*️🗝️️ Display saved searches
     1) Set key and value on window storage object
     2) Display saved searches
@@ -141,5 +174,5 @@ const displayPastSavedSearches = (searchValue = 'stars') => {
 }
 
 const clearUserSearchValue = () => {
-    console.log(searchInputField.value = "")
+    searchInputField.value = ""
 }
