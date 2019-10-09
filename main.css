@@ -1,3 +1,121 @@
 body {
-    background-color: tomato
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    background: linear-gradient(45deg, #aa0000, #4900a9) fixed center center no-repeat;
+}
+
+header {
+    text-align: center;
+}
+
+header h2 {
+    font-size: 3.3rem;
+    font-weight: 800;
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+label {
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+}
+
+input#image-search {
+    padding: .5rem;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    border: none;
+}
+
+input#search-btn,
+button {
+    padding: .5rem;
+    width: 7rem;
+    background-color: transparent;
+    border: 1px solid white;
+    font-size: 1.5rem;
+    color: #fff;
+    border-radius: 3px;
+    margin-left: 1rem;
+    box-shadow: 0px 1px 10px rgba(255, 255, 255, 1);
+    transition: box-shadow 200ms ease-out;
+}
+
+input#search-btn:hover,
+button:hover {
+    cursor: pointer;
+    box-shadow: 0px 1px 50px rgba(255, 255, 255, 1);
+}
+
+button {
+    display: block;
+    margin: 1rem auto 10rem;
+    width: 10rem;
+}
+
+p {
+    width: 30rem;
+}
+
+img {
+    width: 100%;
+    box-shadow: 0px 1px 20px rgba(0, 0, 0, 1), 0 0 40px rgba(0, 0, 0, 1) inset;
+}
+
+a {
+    color: #db00a0;
+    text-decoration: none;
+}
+
+.search-and-load-container p {
+    margin: 1rem auto;
+    text-align: left;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, .8)
+}
+
+.image-div {
+    position: relative;
+    cursor: pointer;
+    overflow: auto;
+    border-radius: .5rem;
+}
+
+.image-description {
+    display: none;
+    margin: 0 auto;
+    position: absolute;
+    font-size: 1.5rem;
+    width: 95%;
+    padding: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    color: white;
+    background-color: rgba(0, 11, 89, .8);
+}
+
+.image-container {
+    display: inline-flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: end;
+}
+
+.image-container > div {
+    display: inline-block;
+    overflow: hidden;
+    width: 25%;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.loading {
+    display: none;
 }

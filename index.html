@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="main.css">
-    <title>Document</title>
+    <title>NASA Image Search</title>
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h2>Discover the Universe of Stardust with NASA</h2>
-        </header>
-        <div>
+            <h2>Discover the Universe with NASA</h2>
             <label for="image-search">Search Images:</label>
-            <input type="text" id="image-search" placeholder="explore the universe for..."/>
-        </div>
-        <section class="image-display">
+            <input type="text" id="image-search" placeholder="explore the universe" />
+            <input type="button" id="search-btn" value="Search" />
+            <div class="search-and-load-container">
+                <p class="loading">Loading...</p>
+                <p>Previous searches:
+                    <span class="show-previous-searches"></span>
+                </p>
+            </div>
+        </header>
+        <div class="display-error"></div>
+        <section class="image-container">
         </section>
     </div>
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
